@@ -3,8 +3,8 @@ package youtube
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -14,14 +14,13 @@ const YOUTUBE_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search"
 const YOUTUBE_API_TOKEN = "AIzaSyAnp0mE7jOsUgrYdC8YvcWMIK1_B4gwMoE"
 const YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v="
 
-// GET https://youtube.googleapis.com/youtube/v3/search?part=id&channelId=lO2v1FJP83M&maxResults=1&order=date&key=[YOUR_API_KEY] HTTP/1.1
+// GET https://youtube.googleapis.com/youtube/v3/search?part=id&channelId=[id]&maxResults=1&order=date&key=[YOUR_API_KEY] HTTP/1.1
 
 // Authorization: Bearer [YOUR_ACCESS_TOKEN]
 // Accept: application/json
 
-
-func GetLastVideo(channelUrl string) (string, error) {
-	items, err := retrieveVideos(channelUrl)
+func GetLastVideo(channelUrl string, maxResults int) (string, error) {
+	items, err := retrieveVideos(channelUrl, maxResults)
 	if err != nil {
 		return "", err
 	}
@@ -33,8 +32,8 @@ func GetLastVideo(channelUrl string) (string, error) {
 	return YOUTUBE_VIDEO_URL + items[0].Id.VideoId, nil
 }
 
-func retrieveVideos(channelUrl string) ([]Item, error) {
-	req, err := makeRequest(channelUrl, 1)
+func retrieveVideos(channelUrl string, maxResults int) ([]Item, error) {
+	req, err := makeRequest(channelUrl, maxResults)
 	if err != nil {
 		return nil, err
 	}
@@ -50,18 +49,20 @@ func retrieveVideos(channelUrl string) ([]Item, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-
+	fmt.Printf("rsp %s\n", body)
 	var restResponse RestResponse
 	err = json.Unmarshal(body, &restResponse)
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Printf("rsp items %#+v\n", restResponse)
 	return restResponse.Items, nil
 }
 
 func makeRequest(channelUrl string, maxResults int) (*http.Request, error) {
 	lastSlashIndex := strings.LastIndex(channelUrl, "/")
-	channelId := channelUrl[lastSlashIndex + 1 :]
+	channelId := channelUrl[lastSlashIndex+1:]
 
 	req, err := http.NewRequest("GET", YOUTUBE_SEARCH_URL, nil)
 	if err != nil {
@@ -77,7 +78,7 @@ func makeRequest(channelUrl string, maxResults int) (*http.Request, error) {
 
 	req.URL.RawQuery = query.Encode()
 
-	log.Println(req.URL.String())
-	
+	fmt.Println(req.URL.String())
+
 	return req, nil
 }

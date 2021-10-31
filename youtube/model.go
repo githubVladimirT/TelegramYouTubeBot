@@ -1,7 +1,7 @@
 package youtube
 
 type RestResponse struct {
-	Items []Item    `json:"item"`
+	Items []Item    `json:"items"`
 }
 
 type Item struct {
@@ -9,5 +9,5 @@ type Item struct {
 }
 
 type ItemInfo struct {
-	VideoId string  `json:"video_id"`
+	VideoId string  `json:"videoId"`
 }
