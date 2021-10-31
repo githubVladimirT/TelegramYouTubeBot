@@ -8,16 +8,16 @@ Out: the last video on www.youtube.com/channel/[id] channel.
 
 Of checking "This video is last?" per function GetLastVideo:
   ```go
-      func GetLastVideo(channelUrl string) (string, error) {
-	        items, err := retrieveVideos(channelUrl)
-	        if err != nil {
-		          return "", err
-	        }
-
-	        if len(items) < 1 {
-		          return "", errors.New("Error! No videos found!")
-	        }
-
-	        return YOUTUBE_VIDEO_URL + items[0].Id.VideoId, nil
-      }
+	func GetLastVideo(channelUrl string) (string, error) {
+  		items, err := retrieveVideos(channelUrl)
+		if err != nil {
+			return "", err
+		}
+	
+		if len(items) < 1 {
+			return "", errors.New("Error! No videos found!")
+		}
+	
+		return YOUTUBE_VIDEO_URL + items[0].Id.VideoId, nil
+	}
   ```
