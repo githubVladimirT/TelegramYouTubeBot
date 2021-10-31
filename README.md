@@ -4,4 +4,4 @@
 
 In: url to channel **With id of channel** example: www.youtube.com/channel/[id]
   
-Out: the last video on www.youtube.com/channel/<id> channel.
+Out: the last video on www.youtube.com/channel/[id] channel.
