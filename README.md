@@ -9,7 +9,7 @@ Out: the last video on www.youtube.com/channel/[id] channel.
 Of checking "This video is last?" per function GetLastVideo:
   ```go
 	func GetLastVideo(channelUrl string) (string, error) {
-  		items, err := retrieveVideos(channelUrl)
+  	items, err := retrieveVideos(channelUrl)
 		if err != nil {
 			return "", err
 		}
