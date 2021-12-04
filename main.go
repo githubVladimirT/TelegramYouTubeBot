@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	bot, err := tel.NewBotAPI("2096039520:AAGXsByirzENLmK1i-7X3CQnvfwCzntgJno")
+	bot, err := tel.NewBotAPI("There will be your token")
 	if err != nil {
 		log.Panic(err)
 	}
