@@ -1,4 +1,4 @@
-module telegram.api/telegram_youtube
+module github.com/githubVladimirT/TelegramYouTubeBot
 
 go 1.16
 
