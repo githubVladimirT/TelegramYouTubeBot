@@ -1,12 +1,12 @@
 ## Сompound Telegram bot and YouTube API v3
 
-### This telegram bot can find last video on channel
+### This telegram bot can find the latest video on a youtube channel
 
 For get last video on channel, send to bot url (without "http://" or "https://") with id of channel. Example: www.youtube.com/channel/[id]
 
-### For run bot follow this steps:
+### To run bot follow this steps:
 
-# In directory with project execute:
+# In project dirictory execute:
 ```bash
 go build
 ./TelegramYouTubeBot
